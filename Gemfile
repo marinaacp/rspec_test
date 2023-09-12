@@ -51,11 +51,17 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'rspec-rails', '~> 6.0.0'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # gem 'spring-commands-rspec', '~> 1.0', '>= 1.0.4'
+  # # Ao entrar na pasta bin vemos nossos comandos disponiveis no raisl. Não temos rspec. Essa gema cria ele.
+  # #Isso permite chamra no terminar o bin/rspec que pode ser bom para performace
+  # # Rodar bundle exec spring binstub rspec   (ou --all)
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

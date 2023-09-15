@@ -20,7 +20,16 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+
+
+
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+# ------------ I HAD TO REMOVE THE COMMENT FROM THE LINE ABOVE TO BE ABLE TO MAKE THE REQUIRE REST-CLIENT BO MAKE IT WORK -------------
+
+
+
+
+
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -30,9 +39,21 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
+  # Faker
+  config.include FactoryBot::Syntax::Methods
+  # FactoryBot --- Similar to fixtures
+  config.include FactoryBot::Syntax::Methods
+  # FactoryBot lint
+  config.before(:suite) do #It will let you know if anything is missing before runing the tests
+    # Ex: you create a mandatory fiels on the db and all the previous test break
+    # Can affect perfore because runs before all suites. Is teste your factories
+    FactoryBot.lint
+  end
+
+
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
   # ---------- aqui em cima que está definido aonde ficam as fixtures ----------
 
 

@@ -40,6 +40,8 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
 
+  # Time helper - native from rails to make the test travel in time back on forth on time passed simulation
+  config.include ActiveSupport::Testing::TimeHelpers
   # Faker
   config.include FactoryBot::Syntax::Methods
   # FactoryBot --- Similar to fixtures

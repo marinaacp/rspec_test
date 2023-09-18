@@ -65,5 +65,17 @@ RSpec.describe Customer, type: :model do
     expect(customer.days_to_pay).to eq(30)
   end
 
+  it "Travel to - rails helpers" do
+    # setup on rails helper
+    # Can use gem timecop if on pure ruby
+    travel_to Time.zone.local(2004, 11, 24, 01, 04, 44) do
+      @customer = create(:customer_vip)
+    end
+
+    puts @customer.created_at
+    expect(@customer.created_at).to eq(Time.utc(2004, 11, 24, 01, 04, 44))
+    expect(@customer.created_at).to be < Time.now
+  end
+
   it { expect{ create(:customer) }.to change{ Customer.all.size}.by(1) }
 end

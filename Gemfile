@@ -57,7 +57,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0.0'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 3.2.0'
-  # gem 'httparty'
+  gem 'webmock', '~> 3.19', '>= 3.19.1'
+  gem 'vcr', '~> 6.1'
 end
 
 group :development do

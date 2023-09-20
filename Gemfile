@@ -30,6 +30,9 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
+# Devise
+gem "devise", "~> 4.9"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -59,6 +62,8 @@ group :development, :test do
   gem 'faker', '~> 3.2.0'
   gem 'webmock', '~> 3.19', '>= 3.19.1'
   gem 'vcr', '~> 6.1'
+  gem 'shoulda-matchers', '~> 5.3'
+  gem 'rails-controller-testing' # For render template
 end
 
 group :development do

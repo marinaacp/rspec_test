@@ -52,6 +52,15 @@ RSpec.configure do |config|
     # Can affect perfore because runs before all suites. Is teste your factories
     FactoryBot.lint
   end
+  # shoulda matchers
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
+  # Devise
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

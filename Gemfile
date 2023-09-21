@@ -85,6 +85,8 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  # 3 step for capybara screenshot
   gem "selenium-webdriver"
+  # gem 'chromedriver-helper', '~> 2.1.1' #only headless
   gem "webdrivers"
 end

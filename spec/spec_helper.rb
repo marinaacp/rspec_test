@@ -1,7 +1,8 @@
 require 'rest-client'
 require 'webmock/rspec' # This will disable real HTTP connections. RestClient wont work
-
+require 'capybara/rspec'
 require 'vcr'
+
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
   config.hook_into :webmock
@@ -9,6 +10,7 @@ VCR.configure do |config|
   config.filter_sensitive_data('<API-URL>') { 'https://jsonplaceholder.typicode.com' } # Thing you dont want recorded on the vcr such access tokens and etc. It will show just what is inside the()
   # 5 step for capybara screenshot
   # config.ignore_localhost = true
+  # config.allow_http_connections_when_no_cassette = true
 end
 # It will create a folder in fixtures and run the webmock itself
 
@@ -19,7 +21,11 @@ end
 #   Selenium::WebDriver::Chrome::Options.new(args:
 #   %w[headless disable-gpu])
 # end
+# Capybara.register_driver :selenium_chrome do |app|
+#   Capybara::Selenium::Driver.new(app, browser: :chrome)
+# end
 # Capybara.javascript_driver = :chrome
+# Capybara.default_t_time = 5
 
 
 

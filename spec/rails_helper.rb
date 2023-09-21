@@ -5,7 +5,12 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+# require 'capybara/rspec' # For capybara to use JS
+# require 'selenium-webdriver'  # For capybara to use JS
+
 # Add additional requires below this line. Rails is not loaded until this point!
+
+
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -20,6 +25,11 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
+
+
+# # For capybara to use JS
+# Capybara.server = :puma, { Silent: true }
+# Capybara.javascript_driver = :selenium_chrome # You can also use :selenium_firefox, :selenium_edge, etc.
 
 
 
@@ -39,6 +49,10 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
+
+  # Setup for capybara test with devise
+  # config.include Devise::Test::ControllersHelpers, :type => :controller
+  config.include Warden::Test::Helpers
 
   # Time helper - native from rails to make the test travel in time back on forth on time passed simulation
   config.include ActiveSupport::Testing::TimeHelpers
@@ -61,6 +75,10 @@ RSpec.configure do |config|
   end
   # Devise
   config.include Devise::Test::ControllerHelpers, type: :controller
+  # # Capybara with JS
+  # config.before(:each, type: :system) do
+  #   driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  # end
 
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :authenticate_member!, except: [:index] # Devise
+  before_action :authenticate_member!, except: [:index, :show] # Devise
   before_action :set_customer, only: %i[ show edit update destroy ]
 
   # GET /customers or /customers.json

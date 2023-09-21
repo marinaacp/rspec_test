@@ -64,6 +64,7 @@ group :development, :test do
   gem 'vcr', '~> 6.1'
   gem 'shoulda-matchers', '~> 5.3'
   gem 'rails-controller-testing' # For render template
+  gem 'rspec-json_expectations'
 end
 
 group :development do

@@ -17,9 +17,9 @@ RSpec.describe CustomersController, type: :controller do
     end
 
     context "show" do
-      it "responds 302 to show" do
+      it "responds 302 to create" do
         customer = create(:customer)
-        get :show, params: { id: customer.id }
+        get :create, params: { id: customer.id }
         expect(response).to have_http_status(302)
       end
     end

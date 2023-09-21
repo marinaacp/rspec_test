@@ -2,6 +2,7 @@ require 'rails_helper'
 require_relative '../support/new_customer_form.rb'
 
 RSpec.feature "Customers", type: :feature do # Cpybara # 1 step to screenshot setup is js: true
+  # let(:new_customer_form) { NewCustomerForm.new } # for object patern. that way you wont have to instace it every time
   it "visits index page" do
     visit(customers_path)
     # print page.html

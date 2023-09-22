@@ -65,6 +65,7 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.3'
   gem 'rails-controller-testing' # For render template
   gem 'rspec-json_expectations'
+  gem "json_matchers"
 end
 
 group :development do

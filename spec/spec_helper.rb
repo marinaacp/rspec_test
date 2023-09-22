@@ -2,6 +2,10 @@ require 'rest-client'
 require 'webmock/rspec' # This will disable real HTTP connections. RestClient wont work
 require 'capybara/rspec'
 require 'vcr'
+require 'json_matchers/rspec' #Json schema
+
+#Json schema
+JsonMatchers.schema_root = "spec/support/api/schemas"
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"

@@ -134,7 +134,7 @@ RSpec.describe "/customers", type: :request do
   # end
 
 
-  # Mine testes
+  # Mine tests
   it "get/customers" do
     get customers_path
     expect(response).to have_http_status(200)
@@ -156,5 +156,65 @@ RSpec.describe "/customers", type: :request do
       name: (be_kind_of String),
       email: (be_kind_of String)
     )
+  end
+
+  it "show get/customers json without gem json_expectations" do
+    #same code as above
+    get "/customers/1.json"
+    response_body = JSON.parse(response.body)
+    expect(response_body.fetch("id")).to eq(1)
+    expect(response_body.fetch("name")).to be_kind_of(String)
+  end
+
+  it "Creates a customer json" do
+    member = create(:member)
+    login_as(member, scope: :member)
+
+    headers = { "ACCEPT" => "application/json" } # Inform that the data is going in json format and controller can adapt
+
+    customer_params = attributes_for(:customer) # Params create by the factory to a customer
+
+    post "/customers.json", params: {customer: customer_params}, headers: headers # remeber the key for the params
+
+    expect(response.body).to include_json(
+      id: /\d/,
+      name: customer_params[:name], #check if create dwith the same value as the one created by the factory
+      email: customer_params.fetch(:email)
+    )
+  end
+
+  it "Edits a customer json" do
+    member = create(:member)
+    login_as(member, scope: :member)
+
+    headers = { "ACCEPT" => "application/json" }
+
+    customer = Customer.first
+    customer.name += "- Updated"
+
+    patch "/customers/#{customer.id}.json", params: {customer: customer.attributes}, headers: headers # Remmeber to tranfor the customer into attributes otherwise it will go as string
+
+    expect(response.body).to include_json(
+      id: /\d/,
+      name: customer.name,
+      email: customer.email
+    )
+  end
+
+  it "Delete a customer json" do
+    member = create(:member)
+    login_as(member, scope: :member)
+
+    headers = { "ACCEPT" => "application/json" }
+
+    customer = Customer.first
+
+    expect{ delete "/customers/#{customer.id}.json", headers: headers }.to change(Customer, :count).by(-1)
+    expect(response).to have_http_status(204)
+  end
+
+  it "Uses Json schema to check json format" do # Setup on the folder suppor/api/schemas (the doc asks to be this folder)
+    get "/customers/1.json"
+    expect(response).to match_response_schema("customer") # match_response_schem is a matcher form the gem json matcher
   end
 end
